@@ -1,0 +1,4 @@
+Ideia Inicial (Gerenciamento de Imposto de Renda)
+Queremos desenvolver uma aplicação web que auxilie qualquer pessoa a realizar o cálculo do seu imposto de renda, seja ele oriundo de day-trade (compra e venda realiza no mesmo dia) ou de swing-trade (compra e venda realizadas em dias diferentes). 
+O objetivo é facilitar a organização, para que cada um possa fazer ele mesmo os cálculos e manter um histórico para os cálculos futuros.
+Sobre o day-trade é cobrado uma taxa de 20% sobre o lucro obtido, e sobre o swing-trade é cobrado uma taxa de 15%. Cada um é feito separadamente. Prejuízos podem ser abatidos em lucros futuros. Por exemplo, fiz um day-trade e ganhei 100 reais, preciso pagar 20 reais de imposto mais outras taxas, mas se eu fiz uma transação anteriormente e nela eu perdi 20 reais, esse imposto poderá ser debitado no prejuízo. OBS: mas só pode ser debitado se for do mesmo tipo de transação, day-trade com day-trade e swing com swing.
