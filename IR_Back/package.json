@@ -1,0 +1,11 @@
+{
+  "name": "ir_back",
+  "version": "1.0.0",
+  "description": "IRConsilio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hiury - Marcelo",
+  "license": "ISC"
+}

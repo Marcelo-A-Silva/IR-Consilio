@@ -1,0 +1,28 @@
+Cronograma
+
+30/09 - Conexões Front e Backend 		- Marcelo
+		Inicialização de Projeto Front	- Marcelo
+		Inicialização de Projeto Back 	- Marcelo
+		Criação de Banco de Dados		- Hiury 
+		
+07/10 - Login Usuarios					- Hiury
+		Cadastro Usuarios				- Marcelo
+		Comunicação Banco Usuários		- Hiury
+
+14/10 - Carteira Dados Iniciais			- Hiury
+		Envios e atualizações dos Dados - Marcelo
+		
+21/10 - Carteira 
+		Criação de Tabelas De transação	- Hiury 
+		
+28/10 - Compra registros e salvamento 	- Hiury / Marcelo
+		Venda registros e salvamento 	- Hiury / Marcelo
+		
+04/11 - Aplicação de impostos			- Hiury / Marcelo
+		Cria visualização de dados 		- Marcelo
+		Compra e Venda Finaliza			- Hiury
+
+11/11 - Relatórios demanda				- Hiury / Marcelo 
+		
+18/11 - Apresentação 
+  
