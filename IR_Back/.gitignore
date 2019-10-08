@@ -1,0 +1,4 @@
+node_modules/
+.env
+tt.txt
+logs/

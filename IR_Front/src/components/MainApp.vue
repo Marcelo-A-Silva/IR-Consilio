@@ -1,0 +1,31 @@
+<template>
+	<v-app id="inspire">
+		<v-content>
+			<Nav ref="Nav"></Nav>
+				<SnackBar ref="SnackBar"></SnackBar>
+				<CadRequi ref="CadRequi"></CadRequi>
+			<router-view/>
+		</v-content>
+			<v-container>
+				<v-footer class="pa-3 justify-center">
+					<div>{{"2019 - "}}{{ new Date().getFullYear() }}{{"  "}} &copy;{{"KFG Labs"}}</div>
+				</v-footer>
+			</v-container>
+    </v-app>
+</template>
+<script>
+import Nav from '@/components/views/navigation/Navigation';
+import SnackBar from '@/components/miscelanea/SnackBar';
+import CadRequi from '@/components/miscelanea/modal/CadRequi';
+export default {
+	name: 'Main',
+	components: {
+		'Nav': Nav,
+		'SnackBar':	SnackBar,
+		'CadRequi': CadRequi
+	},
+	mounted () {
+		this.$root.$SnackBar = this.$refs.SnackBar;
+	}
+};
+</script>
