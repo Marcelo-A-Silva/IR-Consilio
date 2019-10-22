@@ -1,11 +1,11 @@
 /* eslint-disable no-shadow */
 const express = require('express');
-const Chamados = require('../model/Chamados');
+const Carteira = require('../model/Carteira');
 const utils = require('../../utils/utils');
 
 const router = express.Router();
 
-router.get('/getAllSegmentos', (req, res) => {
+router.get('/getAllMovimentos', (req, res) => {
 	let response = {
 		error: false,
 		message: '',
