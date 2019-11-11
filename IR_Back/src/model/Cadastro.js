@@ -39,23 +39,23 @@ exports.cadastroUser = (nome, sobrenome, email, sexo, usuario, senha, telefone, 
 		NOME: nome, SOBRENOME: sobrenome, EMAIL: email, SEXO: sexo, USUARIO: usuario, SENHA: senha, TELEFONE: telefoneReplace,
 	};
 	insert = 'INSERT INTO							';
-	insert += '		USUARIOS								';
-	insert += '(																';
-	insert += '					NOME,							';
+	insert += '		USUARIOS						';
+	insert += '(											';
+	insert += '					NOME,					';
 	insert += '					SOBRENOME,		';
-	insert += '					EMAIL,						';
-	insert += '					SEXO,							';
-	insert +=	'					LOGIN,						';
+	insert += '					EMAIL,				';
+	insert += '					SEXO,					';
+	insert +=	'					LOGIN,				';
 	insert += '     SENHA,						';
-	insert += '     TELEFONE				';
-	insert += ')VALUES										';
-	insert += '(																';
-	insert +=	'					@NOME,						';
-	insert +=	'					@SOBRENOME,	';
-	insert +=	'					@EMAIL,					';
-	insert +=	'					@SEXO,						';
+	insert += '     TELEFONE					';
+	insert += ')VALUES								';
+	insert += '(											';
+	insert +=	'					@NOME,				';
+	insert +=	'					@SOBRENOME,		';
+	insert +=	'					@EMAIL,				';
+	insert +=	'					@SEXO,				';
 	insert +=	'					@USUARIO,			';
-	insert +=	'					@SENHA,					';
+	insert +=	'					@SENHA,				';
 	insert += '					@TELEFONE)		';
 
 	db.connect((dbConn, ps, err) => {
@@ -80,43 +80,6 @@ exports.cadastroUser = (nome, sobrenome, email, sexo, usuario, senha, telefone, 
 				return;
 			}
 			callback(false, 'Cadastro realizado com sucesso', 0, recordset);
-		});
-	});
-};
-exports.updateTechnical = (params, callback) => {
-	let qry = '';
-	const code = params.USER.register;
-	const permisson = params.USER.radioGroup;
-	const segmento = params.USER.select;
-	const param = { CODE: code, PERMISSION: permisson, SEGMENTO: segmento };
-
-	qry = 	'UPDATE USUARIOS SET															';
-	qry += 'PERMISSAO = 	@PERMISSION										';
-	if (permisson > 3) {
-		qry += ',TECNICO = \'S\' 																	';
-	}
-	if (segmento !== '') {
-		qry += ',SEGMENTO_ID = @SEGMENTO									';
-	}
-	qry += 'WHERE ID = @CODE																		';
-	db.connect((dbConn, ps, err) => {
-		if (err) {
-			callback(true, err);
-			return;
-		}
-		ps.input('CODE', db.getInput('int'));
-
-		ps.input('PERMISSION', db.getInput('int'));
-		if (segmento !== '') {
-			ps.input('SEGMENTO', db.getInput('int'));
-		}
-		db.execute(ps, qry, param, (recordset, affected, fail) => {
-			if (fail || affected <= 0) {
-				dbConn.close();
-				callback(true, 'Errou ao atualizar o usuário');
-				return;
-			}
-			callback(false, 'Usuário atualizado com sucesso', null, null);
 		});
 	});
 };

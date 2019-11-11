@@ -59,14 +59,13 @@ exports.addCompra = (DATA, callback) =>	{
 
 
 
-exports.addCompra = (DATA, callback) =>	{
+exports.addVenda = (DATA, callback) =>	{
 	let insert = '';
 	const param = {
 		COD: DATA.COD, REG: DATA,REG, EMOL: DATA.EMOL, LIQUID: DATA.LIQUID, IRRF: DATA.IRRF, QTVEN: DATA.QTVEN, VALVEN: DATA.VALVEN  
 	};
 
 	insert = 'INSERT INTO	CARTEIRA					';
-
 	insert += '	CD_CARTEIRA = @COD					';
 	insert += '	NR_TXREG = @REG							';
 	insert += '	NR_EMOLUM = @EMOL						';

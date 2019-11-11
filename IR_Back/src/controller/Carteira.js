@@ -13,7 +13,7 @@ router.get('/getAllMovimentos', (req, res) => {
 		result: 'Tudo certo',
 	};
 
-	Chamados.getAllSegmentos((status, errorMessage, total, result) => {
+	Carteira.getAllSegmentos((status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -38,7 +38,7 @@ router.post('/createReq', (req, res) => {
 	const { token } = req.headers;
 	const { User } = utils.decoteJwt(token);
 
-	Chamados.createReq(requisicao, descricao, select, descricaoEquip, prioridade, User, (status, errorMessage, total, result) => {
+	Carteira.createReq(requisicao, descricao, select, descricaoEquip, prioridade, User, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -62,7 +62,7 @@ router.put('/updateRequi', (req, res) => {
 	const select = params.VALUE.select.ID;
 	const { descricaoEquip } = params.VALUE;
 	const { prioridade } = params.VALUE;
-	Chamados.updateRequi(requisicao, descricao, select, descricaoEquip, prioridade, code, (status, errorMessage, total, result) => {
+	Carteira.updateRequi(requisicao, descricao, select, descricaoEquip, prioridade, code, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -80,7 +80,7 @@ router.put('/deleteRequisicao', (req, res) => {
 		result: 'Tudo ok',
 	};
 	const params = req.body;
-	Chamados.deleteRequisicao(params, (status, errorMessage, total, result) => {
+	Carteira.deleteRequisicao(params, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -99,7 +99,7 @@ router.get('/getUsuarios', (req, res) => {
 		data: 'TÁOK',
 	};
 
-	Chamados.getUsuarios((status, errorMessage, total, result) => {
+	Carteira.getUsuarios((status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -121,7 +121,7 @@ router.get('/getRequisitions', (req, res) => {
 	const { User } = utils.decoteJwt(token);
 	const params = req.query;
 
-	Chamados.getRequisicao(User, params, (status, errorMessage, total, result) => {
+	Carteira.getRequisicao(User, params, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -143,7 +143,7 @@ router.put('/updateTecnico', (req, res) => {
 	const { User } 	= utils.decoteJwt(token);
 	const params = req.body;
 	const cod = { code: params.COD };
-	Chamados.updateTecnico(User, cod, (status, errorMessage, total, result) => {
+	Carteira.updateTecnico(User, cod, (status, errorMessage, total, result) => {
 		response = {
 			erro: status,
 			message: errorMessage,
@@ -166,7 +166,7 @@ router.put('/updateOrcamento', (req, res) => {
 	const cod = params.code;
 	const { orcamento } = params.refer;
 	const { data } = params.refer;
-	Chamados.updateOrcamento(orcamento, data, cod, (status, errorMessage, total, result) => {
+	Carteira.updateOrcamento(orcamento, data, cod, (status, errorMessage, total, result) => {
 		response = {
 			erro: status,
 			message: errorMessage,
@@ -190,7 +190,7 @@ router.post('/Atendimento', (req, res) => {
 	const { tecnico } = params;
 	const { token } = req.headers;
 	const { User } 	= utils.decoteJwt(token);
-	Chamados.verificaAtendimento(cod, User, (status, errorMessage, total, result) => {
+	Carteira.verificaAtendimento(cod, User, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -201,7 +201,7 @@ router.post('/Atendimento', (req, res) => {
 			res.send(response);
 			return;
 		}
-		Chamados.insertAtendimento(cod, User, tecnico, (status, errorMessage, total, result) => {
+		Carteira.insertAtendimento(cod, User, tecnico, (status, errorMessage, total, result) => {
 			response = {
 				erro: status,
 				message: errorMessage,
@@ -224,7 +224,7 @@ router.put('/pararChamado', (req, res) => {
 	const cod = params.code;
 	const { token } = req.headers;
 	const { User } = utils.decoteJwt(token);
-	Chamados.pararChamado(cod, User, (status, errorMessage, total, result) => {
+	Carteira.pararChamado(cod, User, (status, errorMessage, total, result) => {
 		response = {
 			erro: status,
 			message: errorMessage,
@@ -250,7 +250,7 @@ router.post('/FeedBack', (req, res) => {
 	const { progress } = params.refer;
 	const { token } = req.headers;
 	const { User } = utils.decoteJwt(token);
-	Chamados.FeedBack(cod, User, feedback, encerramento, status, progress, (status, errorMessage, total, result) => {
+	Carteira.FeedBack(cod, User, feedback, encerramento, status, progress, (status, errorMessage, total, result) => {
 		response = {
 			erro: status,
 			message: errorMessage,
@@ -271,7 +271,7 @@ router.get('/getFeedback', (req, res) => {
 	const params = req.query.ID;
 	const { token } = req.headers;
 	const { User } = utils.decoteJwt(token);
-	Chamados.getFeedback(params, User, (status, errorMessage, total, result) => {
+	Carteira.getFeedback(params, User, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -291,7 +291,7 @@ router.get('/getComplemento', (req, res) => {
 	const params = req.query.ID;
 	const { token } = req.headers;
 	const { User } = utils.decoteJwt(token);
-	Chamados.getComplemento(params, User, (status, errorMessage, total, result) => {
+	Carteira.getComplemento(params, User, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -312,7 +312,7 @@ router.put('/Aprovar', (req, res) => {
 	const { cod } = params;
 	const { token } = req.headers;
 	const { User } 	= utils.decoteJwt(token);
-	Chamados.Aprovar(cod, User, (status, errorMessage, total, result) => {
+	Carteira.Aprovar(cod, User, (status, errorMessage, total, result) => {
 		response = {
 			erro: status,
 			message: errorMessage,
@@ -333,7 +333,7 @@ router.put('/Reprovar', (req, res) => {
 	const { cod } = params;
 	const { token } = req.headers;
 	const { User } 	= utils.decoteJwt(token);
-	Chamados.Reprovar(cod, User, (status, errorMessage, total, result) => {
+	Carteira.Reprovar(cod, User, (status, errorMessage, total, result) => {
 		response = {
 			erro: status,
 			message: errorMessage,
@@ -354,7 +354,7 @@ router.get('/getDataTecnico', (req, res) => {
 	const id = req.query.ID;
 	const { token } = req.headers;
 	const { User } 	= utils.decoteJwt(token);
-	Chamados.getDataTecnico(User, id, (status, errorMessage, total, result) => {
+	Carteira.getDataTecnico(User, id, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -375,7 +375,7 @@ router.get('/userRelaciona', (req, res) => {
 	const id = req.query.ID;
 	const { token } = req.headers;
 	const { User } 	= utils.decoteJwt(token);
-	Chamados.userRelaciona( User, id, (status, errorMessage, total, result) => {
+	Carteira.userRelaciona(User, id, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -397,7 +397,7 @@ router.put('/tecnicoNovo', (req, res) => {
 	const params = req.body;
 	const { code } = params;
 	const id = params.ID;
-	Chamados.tecnicoNovo(code, id, (status, errorMessage, total, result) => {
+	Carteira.tecnicoNovo(code, id, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -418,7 +418,7 @@ router.post('/tecnicoSecundario', (req, res) => {
 	const { code } = params;
 	const id = params.ID;
 
-	Chamados.verificaTecnico(code, id, (status, errorMessage, total, result) => {
+	Carteira.verificaTecnico(code, id, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -429,7 +429,7 @@ router.post('/tecnicoSecundario', (req, res) => {
 			res.send(response);
 			return;
 		}
-		Chamados.adicionarTecnicoSec(code, id, (status, errorMessage, total, result) => {
+		Carteira.adicionarTecnicoSec(code, id, (status, errorMessage, total, result) => {
 			response = {
 				error: status,
 				message: errorMessage,
@@ -441,7 +441,7 @@ router.post('/tecnicoSecundario', (req, res) => {
 	});
 });
 
-router.put('/updatePessoa',  (req, res) => {
+router.put('/updatePessoa', (req, res) => {
 	let response = {
 		error: false,
 		message: '',
@@ -451,7 +451,7 @@ router.put('/updatePessoa',  (req, res) => {
 	const params = req.body;
 	const pessoa = params.Pessoas;
 	const cod = params.ID;
-	Chamados.verificarUser(pessoa, cod, (status, errorMessage, total, result) => {
+	Carteira.verificarUser(pessoa, cod, (status, errorMessage, total, result) => {
 		response = {
 			error: status,
 			message: errorMessage,
@@ -462,7 +462,7 @@ router.put('/updatePessoa',  (req, res) => {
 			res.send(response);
 			return;
 		}
-		Chamados.updatePessoa(pessoa, cod, (status, errorMessage, total, result) => {
+		Carteira.updatePessoa(pessoa, cod, (status, errorMessage, total, result) => {
 			response = {
 				error: status,
 				message: errorMessage,
