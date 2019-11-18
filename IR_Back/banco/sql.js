@@ -1,13 +1,14 @@
-const sql = require('mssql');
+/* eslint-disable */
+const sql = require('mysql');
 const config = require('../config/config.json');
 
-exports.connect = (callback) => { 
+exports.connect = (callback) => {
 	var dbConn 	= {};
 	var ps 		= {};
 
 	dbConn = new sql.ConnectionPool(config.dbConfig);
-	dbConn.connect().then(function(){ 			
-		ps = new sql.PreparedStatement(dbConn);	 	
+	dbConn.connect().then(function(){
+		ps = new sql.PreparedStatement(dbConn);
 		callback(dbConn,ps); 
 	}).catch(function(err){  
 		callback(null,null,"[CONNECTION SQL] " + err.message);

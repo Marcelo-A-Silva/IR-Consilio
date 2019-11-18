@@ -13,23 +13,17 @@ router.post('/', (req, res) => {
 		total_records: 1,
 		result: 'Teste',
 		nome: 'nome',
-		tecnico: 'tecnico',
-		permissao: '0',
-		centro_de_custo: 'vazio',
 	};
 	const { nome, senha } = req.body;
 	const nomeP = nome.toLowerCase();
 	// eslint-disable-next-line camelcase
-	Login.loginUser(nomeP, utils.encode64(senha), (status, errorMessage, total, result, nome, tecnico, permissao, centro_de_custo) => {
+	Login.loginUser(nomeP, utils.encode64(senha), (status, errorMessage, total, result, nome) => {
 		response = {
 			error: status,
 			message: errorMessage,
 			total_records: total,
 			data: result,
 			nome,
-			tecnico,
-			permissao,
-			centro_de_custo,
 		};
 		res.send(response);
 	});

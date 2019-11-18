@@ -32,31 +32,31 @@ exports.verificaUser = (usuario, email, callback) => {
 		});
 	});
 };
-exports.cadastroUser = (nome, sobrenome, email, sexo, usuario, senha, telefone, callback) =>	{
+exports.cadastroUser = (nome, cpf, email, sexo, usuario, senha, telefone, callback) =>	{
 	const telefoneReplace = telefone.replace(/[^\d]+/g, '');
 	let insert = '';
 	const param = {
-		NOME: nome, SOBRENOME: sobrenome, EMAIL: email, SEXO: sexo, USUARIO: usuario, SENHA: senha, TELEFONE: telefoneReplace,
+		NOME: nome, CADPF: cpf, EMAIL: email, SEXO: sexo, USUARIO: usuario, SENHA: senha, TELEFONE: telefoneReplace,
 	};
 	insert = 'INSERT INTO							';
 	insert += '		USUARIOS						';
 	insert += '(											';
-	insert += '					NOME,					';
-	insert += '					SOBRENOME,		';
-	insert += '					EMAIL,				';
-	insert += '					SEXO,					';
-	insert +=	'					LOGIN,				';
-	insert += '     SENHA,						';
-	insert += '     TELEFONE					';
+	insert += '			NM_USUARIO,				';
+	insert += '			NR_CPF,						';
+	insert += '			NM_EMAIL,					';
+	insert += '			DS_GENERO,				';
+	insert +=	'			NM_LOGIN,					';
+	insert += '     DS_SENHA,					';
+	insert += '     NR_TELEFONE				';
 	insert += ')VALUES								';
 	insert += '(											';
-	insert +=	'					@NOME,				';
-	insert +=	'					@SOBRENOME,		';
-	insert +=	'					@EMAIL,				';
-	insert +=	'					@SEXO,				';
-	insert +=	'					@USUARIO,			';
-	insert +=	'					@SENHA,				';
-	insert += '					@TELEFONE)		';
+	insert +=	'			@NOME,						';
+	insert +=	'			@CADPF,						';
+	insert +=	'			@EMAIL,						';
+	insert +=	'			@SEXO,						';
+	insert +=	'			@USUARIO,					';
+	insert +=	'			@SENHA,						';
+	insert += '			@TELEFONE)				';
 
 	db.connect((dbConn, ps, err) => {
 		if (err) {

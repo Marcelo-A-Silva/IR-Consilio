@@ -45,14 +45,9 @@
 				<v-btn  text color="white" @click="logoff()">Sair</v-btn>
 			</v-toolbar-items>
 		</v-app-bar>
-		<Register
-			v-if="dialogVisible"
-			:dialogVisible="dialogVisible"
-			v-on:setDialogVisible="actionDialogVisible"/>
 	</div>
 </template>
 <script>
-import Register from '@/components/miscelanea/alerts/technicalRegister';
 import Drawer from './Drawer';
 export default {
 	name: 'Navigation',
@@ -123,8 +118,7 @@ export default {
 		}
 	},
 	components: {
-		'Drawer': Drawer,
-		'Register': Register
+		'Drawer': Drawer
 	}
 }
 </script>

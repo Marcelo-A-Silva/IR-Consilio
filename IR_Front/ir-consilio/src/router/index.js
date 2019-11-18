@@ -1,14 +1,12 @@
-/* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
 
 import LoginView from '@/components/LoginView';
 import MainApp from '@/components/MainApp';
 
-import Dashboard from '@/components/views/Dashboard';
 import Carteira from '@/components/views/carteira/Carteira'
 import Logoff from '@/components/views/Logoff';
-Vue.use(Router);
+Vue.use(Router)
 
 const router = new Router({
 	routes: [
@@ -24,10 +22,8 @@ const router = new Router({
 			path: '/',
 			component: MainApp,
 			children: [
-				{	path: '/dashboard', name: 'Dashboard', component: Dashboard },
 				{path: '/carteira', name: 'Carteira',	component: Carteira},
-				{path: '*', redirect: '/dashboard'}
-
+				{path: '*', redirect: '/login'}
 			]
 		}
 	]
