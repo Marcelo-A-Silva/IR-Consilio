@@ -23,8 +23,8 @@
             </v-text-field>
             <v-text-field
               v-model="user.sobrenome"
-              :rules="SobreRegra"
-              label="Digite seu sobrenome"
+              :rules="CPFRegra"
+              label="Digite seu CPF"
               required
             ></v-text-field>
 						<v-text-field
@@ -117,7 +117,11 @@ export default {
 			},
 			NomeRegra: [v => !!v || 'Nome é obrigatório'],
 			RegraUsuario: [v => !!v || 'Usuário é obrigatório'],
-			SobreRegra: [v => !!v || 'Sobrenome é obrigatório'],
+			CPFRegra:
+			[
+				(v) => !!v || 'Favor informar o cpf',
+				(v) => (v && v.length == 11) || 'CPF incorreto'
+			],
 			RegraSenha: [v => !!v || 'Senha é obrigatória'],
 			EmailRegra: [
 				(v) => !!v || 'E-mail é obrigatório',

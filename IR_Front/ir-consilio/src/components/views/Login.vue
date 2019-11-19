@@ -1,9 +1,8 @@
 <template>
-	<div>
+	<v-container>
 		<v-layout row align-center justify-center class="margin-t50 margin-b50">
-			<v-flex xs12 sm4 class="text-center"></v-flex>
+			<v-flex xs12 sm6 class="text-center"></v-flex>
 		</v-layout>
-		<v-container fluid fill-height>
 			<v-layout flex align-center justify-center>
 				<v-flex xs12 sm4 elevation-3>
 					<v-toolbar color="indigo" class="pt-1">
@@ -49,8 +48,7 @@
 					</v-card>
 				</v-flex>
 			</v-layout>
-		</v-container>
-	</div>
+	</v-container>
 </template>
 <script>
 export default {
