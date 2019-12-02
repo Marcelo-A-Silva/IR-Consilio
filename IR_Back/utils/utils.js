@@ -1,3 +1,4 @@
+/* eslint-disable */
 const jwt = require('jsonwebtoken');
 const db = require('../banco/sql');
 const Base64 = require('./base64');
@@ -13,7 +14,7 @@ exports.clearCharMemo = (strMemo, crlf = null) => {
 };
 
 exports.decoteJwt = (token) => {
-	const secret = 'helpdesk';
+	const secret = 'irConsi';
 	const decoded = jwt.verify(token, secret);
 	return decoded;
 };
@@ -47,8 +48,6 @@ exports.maskText = (text, mask) => {
 
 	return newValue;
 };
-
-
 
 exports.validAuthorization = (req, res, next) => {
 	const { token } = req.headers;

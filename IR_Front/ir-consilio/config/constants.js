@@ -5,7 +5,6 @@ module.exports = {
 		},
 		table: {
 			noResultText: 'Nenhum item foi encontrado',
-			rowPerPageText: 'Itens por página: ',
 			noDataText: 'Nenhum registro',
 			loadingText: 'Aguarde, buscado dados...'
 		},

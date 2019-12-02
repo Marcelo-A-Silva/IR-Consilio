@@ -21,6 +21,7 @@ exports.verificaUser = (usuario, email, callback) => {
 
 		db.execute(ps, qry, param, (recordset) => {
 			const data = recordset;
+			console.log(data);
 			let errFail = '';
 			if (data.recordset[0].COUNTER >= 1) {
 				dbConn.close();

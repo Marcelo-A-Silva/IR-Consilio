@@ -19,7 +19,7 @@
 					<v-btn icon dark @click.native="dialog = false" v-shortkey="['esc']" @shortkey="dialog = false">
 						<v-icon>close</v-icon>
 					</v-btn>
-					<v-toolbar-title class="white--text">Informações da compra</v-toolbar-title>
+					<v-toolbar-title class="white--text">Informações da venda</v-toolbar-title>
 					<v-spacer></v-spacer>
 				</v-toolbar>
 				<v-list three-line subheader>
@@ -28,11 +28,11 @@
 						<v-container fluid>
 							<v-select
 								v-model="refr.select"
-								:items="ativos"
+								:items="compras"
 								:rules="ativosRegras"
 								item-value="ID"
 								item-text="ATIVO"
-								label="Ativo"
+								label="Compras"
 								required
 							></v-select>
 							<v-text-field
@@ -40,12 +40,6 @@
 								label="Valor"
 								:rules="ValorRegra"
 								required
-							></v-text-field>
-							<v-text-field
-								v-model="refr.quant"
-								auto-grow
-								:rules="QuantidadeRegra"
-								label="Quantidade"
 							></v-text-field>
 							<v-layout justify-center id="btnLogin">
 								<v-btn
@@ -74,18 +68,14 @@ export default {
 			dialog: false,
 			sound: true,
 			valid: false,
-			ativos: [],
+			compras: [],
 			refr: {
 				select: '',
-				quant: '',
 				valor: ''
 			},
 			ValorRegra:
 			[
 				(v) => !!v || 'Favor informar o valor'
-			],
-			QuantidadeRegra: [
-				(v) => !!v || 'Favor informar a quantidade'
 			],
 			ativosRegras: [v => !!v ||	'Favor informar o ativo'],
 			snackbar: {
@@ -100,31 +90,15 @@ export default {
 		};
 	},
 	mounted () {
-		this.getAtivos();
+		this.getCompras();
 	},
 	methods: {
-		getAtivos () {
-			const userData = JSON.parse(localStorage.userData);
-			this.$http
-				.get(this.CONFIG.API_URL + 'Carteira/getAtivos', {headers: { token: userData }})
-				.then(response => {
-					if (response.body.error) {
-						this.loading = false;
-						this.snackbar.color = 'red darken-4';
-						this.snackbar.message = response.body.message;
-						this.$root.$SnackBar.show(this.snackbar);
-						return;
-					}
-					this.ativos = response.body.data;
-					console.log(this.ativos);
-				})
-				.catch(() => {
-				});
-		},
 		getCompras () {
 			const userData = JSON.parse(localStorage.userData);
 			this.$http
-				.get(this.CONFIG.API_URL + 'Carteira/getCompras', {headers: { token: userData }})
+				.get(this.CONFIG.API_URL + 'Carteira/getCompras', {
+					headers: { token: userData }
+				})
 				.then(response => {
 					if (response.body.error) {
 						this.loading = false;
@@ -133,7 +107,7 @@ export default {
 						this.$root.$SnackBar.show(this.snackbar);
 						return;
 					}
-					this.segmentos = response.body.data;
+					this.compras = response.body.data;
 				})
 				.catch(() => {});
 		},
@@ -143,7 +117,7 @@ export default {
 				const userData = JSON.parse(localStorage.userData);
 				this.loading = true;
 				this.$http
-					.post(this.CONFIG.API_URL + 'Carteira/addCompra', this.refr, {
+					.post(this.CONFIG.API_URL + 'Carteira/addVenda', this.refr, {
 						headers: {token: userData}
 					})
 					.then(response => {

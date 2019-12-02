@@ -91,7 +91,7 @@ export default {
 						localStorage.userData = JSON.stringify(response.body.data);
 						localStorage.nomeData = JSON.stringify(response.body.nome);
 						this.loading = false;
-						this.$router.push({path: '/dashboard'});
+						this.$router.push({path: '/carteira'});
 					})
 					.catch(() => {
 						this.loading = false;

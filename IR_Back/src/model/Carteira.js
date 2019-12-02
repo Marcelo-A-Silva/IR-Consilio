@@ -1,102 +1,200 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable max-len */
-/* eslint-disable no-useless-return */
+/* eslint-disable */
 const db = require('../../banco/sql');
 
-exports.addCompra = (DATA, callback) =>	{
+exports.addCompra = (select, quant, valor, User, callback) =>	{
 	let insert = '';
-	const param = {
-		COD: DATA.COD,QTDCOM: DATA.QTDCOM, VALATCOM:DATA.VALATCOM,   REG: DATAREG, EMOL: DATA.EMOL, LIQUID: DATA.LIQUID, IRRF: DATA.IRRF, QTVEN: DATA.QTVEN, VALVEN: DATA.VALVEN  
-	};
+	const param = {USER: User.ID, ATIVO: select, QUANT: quant, VAL: valor};
+	console.log(param);
 
-	insert  = 'INSERT INTO	CARTEIRA					';
-	
-	insert += '	CD_CARTEIRA										';
-	insert += '	DT_COMPRA											';
-	insert += '	NR_QTDCOMPRA									';
-	insert += '	NR_VALNACP										';
-	insert += '	NR_TXREG											';
-	insert += '	NR_EMOLUM											';
-	insert += '	NR_TXLIQUI										';
-	insert += '	NR_IRRF												';
-	
-	insert += '	CD_CARTEIRA = @COD						';
-	insert += '	DT_COMPRA = sysdate()					';
-	insert += '	NR_QTDCOMPRA = @QTDCOM				';
-	insert += '	NR_VALNACP = @VALATCOM 				';
-	insert += '	NR_TXREG = @REG								';
-	insert += '	NR_EMOLUM = @EMOL							';
-	insert += '	NR_TXLIQUI = @LIQUID					';
-	insert += '	NR_IRRF = @IRRF								';
+	insert = 'INSERT INTO	MOVIMENTACOES	(		';
+	insert += ' USUARIO,										';
+	insert += ' CARTEIRA,										';
+	insert += ' ATIVO,											';
+	insert += ' VALOR_COM,									';
+	insert += ' QUANTIDADE,									';
+	insert += ' TIPO, 											';
+	insert += ' DTCOM 											';
+	insert += '	)	VALUES	(									';
+	insert += '	@USER,											';
+	insert += '	@USER,											';
+	insert += '	@ATIVO,											';
+	insert += '	@VAL,												';
+	insert += '	@QUANT,	  									';
+	insert += '	1,													';
+	insert += '	GETDATE()	)									';
 
 	db.connect((dbConn, ps, err) => {
 		if (err) {
 			callback(true, err);
 			return;
 		}
-		ps.input('CD_CARTEIRA', db.getInput('int', 5));
-		ps.input('DT_COMPRA',  db.getInput('datetime', 23));
-		ps.input('NR_QTDCOMPRA', db.getInput('int', 5));
-		ps.input('NR_VALNACP', db.getInput('int', 5));
-		ps.input('NR_TXREG', db.getInput('int', 5));
-		ps.input('NR_EMOLUM', db.getInput('int', 5));
-		ps.input('NR_TXLIQUI', db.getInput('int', 5));
-		ps.input('NR_IRRF', db.getInput('int', 5));
+		ps.input('USER', db.getInput('int'));
+		ps.input('ATIVO', db.getInput('int'));
+		ps.input('VAL', db.getInput('float'));
+		ps.input('QUANT', db.getInput('int'));
 
 		db.execute(ps, insert, param, (recordset, affected, fail) => {
 			let errFail = '';
 			if (fail || affected <= 0) {
 				dbConn.close();
-				errFail = ' Houve um problema ao concluir o cadastro';
+				console.log(fail);
+				errFail = ' Houve um problema ao concluir o compra';
 				callback(true, errFail);
 				return;
 			}
-			callback(false, 'Cadastro realizado com sucesso', 0, recordset);
+			callback(false, 'Compra realizada com sucesso', 0, recordset);
 		});
 	});
 };
 
-
-
-
-exports.addVenda = (DATA, callback) =>	{
+exports.addVenda = (select, valor, callback) =>	{
 	let insert = '';
-	const param = {
-		COD: DATA.COD, REG: DATA,REG, EMOL: DATA.EMOL, LIQUID: DATA.LIQUID, IRRF: DATA.IRRF, QTVEN: DATA.QTVEN, VALVEN: DATA.VALVEN  
-	};
+	const param = {MOV: select, VAL: valor};
+	console.log(param);
 
-	insert = 'INSERT INTO	CARTEIRA					';
-	insert += '	CD_CARTEIRA = @COD					';
-	insert += '	NR_TXREG = @REG							';
-	insert += '	NR_EMOLUM = @EMOL						';
-	insert += '	NR_TXLIQUI = @LIQUID				';
-	insert += '	NR_IRRF = @IRRF							';
-	insert += '	NR_QTDVENDA = @QTVEN				';
-	insert += '	NR_VALNAVD = @VALVEN				';
-	insert += '	DT_VENDA = sysdate()				';
+	insert = 'UPDATE MOVIMENTACOES SET VALOR_VEN= @VAL, DTVEM = GETDATE(), IMPOSTO = (@VAL* 0.0005) WHERE ID = @MOV ';
 
 	db.connect((dbConn, ps, err) => {
 		if (err) {
 			callback(true, err);
 			return;
 		}
-		ps.input('NOME', db.getInput('varchar', 20));
-		ps.input('SOBRENOME', db.getInput('varchar', 20));
-		ps.input('EMAIL', db.getInput('varchar', 60));
-		ps.input('SEXO', db.getInput('char', 1));
-		ps.input('USUARIO', db.getInput('varchar', 20));
-		ps.input('SENHA', db.getInput('varchar', 20));
-		ps.input('TELEFONE', db.getInput('varchar', 50));
+		ps.input('VAL', db.getInput('float'));
+		ps.input('MOV', db.getInput('int'));
 
 		db.execute(ps, insert, param, (recordset, affected, fail) => {
 			let errFail = '';
 			if (fail || affected <= 0) {
 				dbConn.close();
-				errFail = ' Houve um problema ao concluir o cadastro';
+				console.log(fail);
+				errFail = ' Houve um problema ao concluir o compra';
 				callback(true, errFail);
 				return;
 			}
-			callback(false, 'Cadastro realizado com sucesso', 0, recordset);
+			callback(false, 'Compra realizada com sucesso', 0, recordset);
+		});
+	});
+};
+
+exports.getCarteira = (User, callback) => {
+	let qry = '';
+	const param = {
+		USER: User.ID,
+	};
+	qry += '	AND	REQUISICOES_ID = @ID						';
+	qry += '	WHERE ANEXOS.D_E_L_E_T IS NULL			';
+	db.connect((dbConn, ps, err) => {
+		if (err) {
+			callback(true, err);
+			return;
+		}
+		ps.input('USER', db.getInput('int'));
+		db.execute(ps, qry, param, (recordset, affected, errExec) => {
+			const data = recordset;
+			if (errExec) {
+				dbConn.close();
+				callback(true, 'Ocorreu um problema, favor tente novamente');
+				return;
+			}
+			callback(false, '', 0, data.recordset);
+		});
+	});
+};
+
+exports.getMovimenta = (User, callback) => {
+	let qry = '';
+	const param = {
+		USER: User.ID,
+	};
+	qry +=	' SELECT 																					';
+	qry +=	' 	AT.ATIVO,																			';
+	qry +=	' 	MO.QUANTIDADE, 																';
+	qry +=	' 	MO.VALOR_COM, 																';
+	qry +=	' 	(MO.VALOR_COM * MO.QUANTIDADE) AS TOT, 				';
+	qry +=	' 	CONVERT(VARCHAR,MO.DTCOM,103) AS DTCP, 				';
+	qry +=	' 	MO.VALOR_VEN,																	';
+	qry +=	' 	(MO.VALOR_VEN * MO.QUANTIDADE) AS VENTOT,			';
+	qry +=	' 	CONVERT(VARCHAR,MO.DTVEM,103) AS DTVE, 				';
+	qry +=	' 	((MO.VALOR_VEN * MO.QUANTIDADE) - (MO.VALOR_COM * MO.QUANTIDADE)) AS SALDO,				';
+	qry +=	' 	(CASE																					';
+	qry +=	'			WHEN MO.DTCOM < MO.DTVEM THEN ((MO.QUANTIDADE*MO.VALOR_VEN * 0.0005)+(MO.QUANTIDADE*MO.VALOR_VEN * 0.15))  ';
+	qry +=	'			ELSE ((MO.QUANTIDADE*MO.VALOR_VEN * 0.01)+ (MO.QUANTIDADE*MO.VALOR_VEN * 0.15))			';
+	qry +=	'		END) AS IMP 																	';
+	qry +=	' FROM MOVIMENTACOES MO														';
+	qry +=	' 	INNER JOIN ATIVOS AT ON MO.ATIVO = AT.ID			';
+	qry +=	' WHERE	MO.USUARIO = @USER												';
+	qry +=	' 	AND	MO.D_E_L_E_T IS NULL											';
+	db.connect((dbConn, ps, err) => {
+		if (err) {
+			callback(true, err);
+			return;
+		}
+		ps.input('USER', db.getInput('int'));
+		db.execute(ps, qry, param, (recordset, affected, errExec) => {
+			const data = recordset;
+			if (errExec) {
+				dbConn.close();
+				console.log(errExec);
+				callback(true, 'Ocorreu um problema ao buscar as movimentações');
+				return;
+			}
+			console.log(data.recordset);
+			callback(false, '', 0, data.recordset);
+		});
+	});
+};
+exports.getAtivos = (callback) => {
+	let qry = '';
+	qry  =	' SELECT 				';
+	qry +=	' 	ID, 				';
+	qry +=	' 	ATIVO 			';
+	qry +=	' FROM ATIVOS		';
+
+	db.connect((dbConn, ps, err) => {
+		if (err) {
+			callback(true, err);
+			return;
+		}
+		db.quickExecute(qry, (err,recordset) => {
+			const data = recordset;
+			if (err) {
+				console.log(err);
+				callback(true, 'Ocorreu um erro problema ao buscar os ativos');
+				return;
+			}
+			callback(false, '', 0, data.recordset);
+		});
+	})
+};
+exports.getCompras = (User, callback) => {
+	let qry = '';
+	const param = {
+		USER: User.ID,
+	};
+	qry += '  SELECT 																				';
+	qry += '  	MO.ID, 																			';
+	qry += '  	CONCAT(MO.ID, \' - \',AT.ATIVO) AS ATIVO,		';
+	qry += '   	MO.VALOR_COM,																';
+	qry += '   	MO.QUANTIDADE																';
+	qry += '  FROM MOVIMENTACOES MO													';
+	qry += '   INNER JOIN ATIVOS AT ON AT.ID = MO.ATIVO			';
+	qry += '  WHERE  MO.USUARIO = @USER											';
+	qry += '  	AND	 MO.DTVEM IS NULL												';
+
+	db.connect((dbConn, ps, err) => {
+		if (err) {
+			callback(true, err);
+			return;
+		}
+		ps.input('USER', db.getInput('int'));
+		db.execute(ps, qry, param, (recordset, affected, errExec) => {
+			const data = recordset;
+			if (errExec) {
+				dbConn.close();
+				callback(true, 'Ocorreu um problema ao buscar as compras.');
+				return;
+			}
+			callback(false, '', 0, data.recordset);
 		});
 	});
 };

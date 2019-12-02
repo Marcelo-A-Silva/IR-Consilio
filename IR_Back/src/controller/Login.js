@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
 
 router.get('/checktoken', (req, res) => {
 	const { token } = req.headers;
-	const secret = 'helpdesk';
+	const secret = 'irConsi';
 	let jwtDate = '';
 	let actualDate = '';
 

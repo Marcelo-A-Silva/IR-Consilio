@@ -5,10 +5,9 @@ const db = require('../../banco/sql');
 exports.loginUser = (nome, senha, callback) => {
 	let qry = '';
 	let token = '';
-	const secret = 'helpdesk';
+	const secret = 'irConsi';
 	const param = { LOGIN: nome, PASS: senha };
-	qry = ' SELECT ID,USR.LOGIN,USR.NOME,		';
-	qry += ' USR.TECNICO,USR.PERMISSAO				';
+	qry = ' SELECT ID,USR.LOGIN,USR.NOME		';
 	qry += ' FROM USUARIOS USR 												';
 	qry += ' WHERE USR.LOGIN = @LOGIN 					';
 	qry += ' AND USR.SENHA = @PASS 								';
@@ -46,7 +45,7 @@ exports.loginUser = (nome, senha, callback) => {
 					dbConn.close();
 					return;
 				}
-				callback(false, 'Parabéns você logou com sucesso', recordset.rowsAffected, data.recordset[0].TOKEN, data.recordset[0].NOME, data.recordset[0].TECNICO, data.recordset[0].PERMISSAO, data.recordset[0].CENTRO_DE_CUSTO);
+				callback(false, 'Parabéns você logou com sucesso', recordset.rowsAffected, data.recordset[0].TOKEN, data.recordset[0].NOME);
 			});
 		});
 	});

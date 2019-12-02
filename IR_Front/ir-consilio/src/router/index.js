@@ -31,6 +31,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
 	const publicPages = ['/login', '/logoff'];
 	const authRequired = !publicPages.includes(to.path);
+	const toPath = to.fullPath;
 	const loggedIn = localStorage.getItem('userData');
 	const instance = router.app;
 	const teste = JSON.parse(loggedIn);

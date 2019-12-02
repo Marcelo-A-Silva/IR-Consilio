@@ -46,16 +46,16 @@
 															@keydown.enter="submit"
               required
             ></v-text-field>
-    <v-text-field
+   					<v-text-field
 							label="Informe a senha"
 							v-model="user.senha"
 							:append-icon="!e1 ? 'visibility' : 'visibility_off'" @click:append="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'"
 							:rules="RegraSenha"
 							@keydown.enter="submit"
 							required
-    ></v-text-field>
+						></v-text-field>
 						<v-text-field
-        label="Confirme a sua senha"
+        			label="Confirme a sua senha"
 							:error-messages='verificaSenha()'
        v-model="user.senhaConfirma"
 							ref="senhaConfirma"
